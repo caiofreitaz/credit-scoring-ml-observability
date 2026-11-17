@@ -6,7 +6,7 @@ Este documento detalha **como** a solução funciona. O **porquê** de negócio 
 
 ```mermaid
 flowchart TB
-    CLI["src/cli.py<br/>python -m src.cli &lt;comando&gt;"] --> PIPE["src/pipeline/run_pipeline.py<br/>PipelineContext (config, paths, run_id, alertas, tracker)"]
+    CLI["src/cli.py<br/>python -m src.cli COMANDO"] --> PIPE["src/pipeline/run_pipeline.py<br/>PipelineContext (config, paths, run_id, alertas, tracker)"]
     PIPE --> DATA["src/data<br/>ingest · prepare · eda · batches"]
     PIPE --> VAL["src/validation<br/>contracts · gate"]
     PIPE --> MODEL["src/model<br/>features · train · predict · metrics · fairness"]
@@ -34,7 +34,7 @@ sequenceDiagram
     Pipeline->>Gate: contrato training em train/validation/reference
     Pipeline->>Model: treino + seleção (validação) + avaliação (referência)
     Model->>MLflow: experimento credit-scoring-training + Model Registry
-    Pipeline->>MLflow: run pai pipeline-<run_id> (experimento de monitoramento)
+    Pipeline->>MLflow: run pai pipeline-{run_id} (experimento de monitoramento)
     Pipeline->>Gate: batch_valid (inference)
     Gate-->>Model: aceito → predições
     Pipeline->>Gate: batch_invalid (inference)
@@ -47,7 +47,7 @@ sequenceDiagram
         Drift->>Gate: outcomes (outcome contract)
         Drift->>Drift: métricas + IC + teste de calibração
         Drift->>Alerts: regras objetivas
-        Drift->>MLflow: run monitor-<cenário> (métricas, tags, artefatos)
+        Drift->>MLflow: run monitor-{cenário} (métricas, tags, artefatos)
     end
     Pipeline->>Pipeline: figuras + monitoring_summary.json + dashboard HTML
 ```

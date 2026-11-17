@@ -66,34 +66,34 @@ Este projeto **não melhora o modelo**: ele constrói a camada que **impede, det
 ```mermaid
 flowchart LR
     subgraph Fonte["Fonte pública"]
-        UCI[(UCI Default of<br/>Credit Card Clients)]
+        UCI[("UCI Default of<br/>Credit Card Clients")]
     end
     subgraph Dados["src/data"]
-        ING[ingest.py<br/>download + SHA-256]
-        PREP[prepare.py<br/>limpeza + pseudonimização<br/>+ split sem vazamento]
+        ING["ingest.py<br/>download + SHA-256"]
+        PREP["prepare.py<br/>limpeza + pseudonimização<br/>+ split sem vazamento"]
     end
     subgraph Contratos["src/validation"]
-        CT[contracts.py<br/>Pandera: treino / inferência / outcome]
-        GATE{gate.py<br/>aceita ou bloqueia}
-        Q[(quarentena)]
+        CT["contracts.py<br/>Pandera: treino / inferência / outcome"]
+        GATE{"gate.py<br/>aceita ou bloqueia"}
+        Q[("quarentena")]
     end
     subgraph Modelo["src/model"]
-        TR[train.py<br/>LogReg + seleção na validação]
-        PR[predict.py<br/>inferência com gate]
-        FA[fairness.py<br/>auditoria de vieses]
+        TR["train.py<br/>LogReg + seleção na validação"]
+        PR["predict.py<br/>inferência com gate"]
+        FA["fairness.py<br/>auditoria de vieses"]
     end
     subgraph Drift["src/drift"]
-        SIM[simulation.py<br/>4 cenários]
-        ST[statistics.py<br/>PSI / KS / qui²]
-        CC[concept.py<br/>P&#40;Y&#124;score&#41; + performance]
-        EV[evidently_reports.py]
+        SIM["simulation.py<br/>4 cenários"]
+        ST["statistics.py<br/>PSI / KS / qui²"]
+        CC["concept.py<br/>P(Y|score) + performance"]
+        EV["evidently_reports.py"]
     end
     subgraph Obs["src/monitoring"]
-        AL[alerts.py<br/>INFO/WARNING/CRITICAL]
-        LG[logger.py<br/>JSONL + run_id]
-        OB[observability.py<br/>etapas, duração, RSS]
-        DB[dashboard.py]
-        ML[(MLflow<br/>SQLite)]
+        AL["alerts.py<br/>INFO / WARNING / CRITICAL"]
+        LG["logger.py<br/>JSONL + run_id"]
+        OB["observability.py<br/>etapas, duração, RSS"]
+        DB["dashboard.py"]
+        ML[("MLflow<br/>SQLite")]
     end
     UCI --> ING --> PREP --> CT --> GATE
     GATE -- inválido --> Q
