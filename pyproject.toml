@@ -1,0 +1,41 @@
+[project]
+name = "credit-scoring-ml-observability"
+version = "1.0.0"
+description = "Camada de confiabilidade para um modelo de Credit Scoring: contratos de dados, detecção de drift, observabilidade e governança (FIAP Tech Challenge Fase 4)."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning",
+    "ignore::UserWarning",
+    "ignore::pydantic.warnings.PydanticDeprecatedSince20",
+]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = ["src/__init__.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 85
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = [".venv", "mlruns", "reports", "data", "artifacts", "logs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "S", "SIM", "RUF"]
+ignore = ["S101", "RUF001", "RUF002", "RUF003", "S311"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "N802", "N806"]

@@ -1,0 +1,41 @@
+# Ambientes virtuais e caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Segredos (nunca versionar)
+.env
+*.env
+secrets/
+
+# Dados: reprodutíveis pelo script de download/preparação (não versionar dados de clientes)
+data/raw/*
+data/reference/*
+data/production/*
+data/invalid/*
+!data/**/.gitkeep
+
+# Artefatos e rastreamento locais (regenerados pelo pipeline)
+artifacts/*
+!artifacts/.gitkeep
+mlflow.db
+mlruns/
+mlartifacts/
+logs/*
+!logs/.gitkeep
+

@@ -1,0 +1,117 @@
+# Configuração central do projeto credit-scoring-ml-observability.
+# Todos os caminhos são relativos à raiz do repositório.
+
+project:
+  name: credit-scoring-ml-observability
+  seed: 42
+
+paths:
+  raw_data: data/raw/default_of_credit_card_clients.csv
+  raw_manifest: data/raw/download_manifest.json
+  reference_dir: data/reference
+  production_dir: data/production
+  invalid_dir: data/invalid
+  quarantine_dir: data/invalid/quarantine
+  artifacts_dir: artifacts
+  model_dir: artifacts/model
+  reports_dir: reports
+  logs_dir: logs
+  mlflow_db: mlflow.db
+  mlflow_artifacts: mlruns
+
+data:
+  # Fonte oficial (UCI) e espelhos públicos no GitHub usados como contingência.
+  # Todos são validados pelo mesmo hash de conteúdo (canonical_sha256).
+  sources:
+    - name: uci_official
+      url: https://archive.ics.uci.edu/static/public/350/default+of+credit+card+clients.zip
+      format: zip_xls
+    - name: github_mirror_original_xls
+      url: https://raw.githubusercontent.com/neurospin/pystatsml/master/datasets/default%20of%20credit%20card%20clients.xls
+      format: xls
+    - name: github_mirror_csv
+      url: https://raw.githubusercontent.com/kwartler/teaching-datasets/main/UCI_Credit_Card.csv
+      format: csv
+  expected_rows: 30000
+  expected_columns: 25
+  # SHA-256 do CSV canônico (colunas normalizadas, inteiros, sem índice).
+  # Verificado: o ZIP oficial da UCI, o .xls original e o CSV espelho geram o mesmo hash.
+  canonical_sha256: 84ba892a2a55a0d711259f30084753f22b14b0c56303baf25ced4e7600230248
+  # Salt de pseudonimização: em produção real deve vir de um cofre de segredos.
+  pseudonymization_salt_env: CREDIT_PSEUDO_SALT
+  pseudonymization_default_salt: fiap-tech-challenge-fase4-salt-academico
+  split:
+    train: 0.50
+    validation: 0.10
+    reference: 0.15
+    production: 0.25
+
+features:
+  id_column: client_id
+  target: default_next_month
+  # Atributos usados somente para auditoria de vieses (não entram no modelo
+  # e não são aceitos em lotes de inferência — minimização de dados).
+  protected_attributes: [SEX, MARRIAGE]
+  categorical: [EDUCATION]
+  ordinal_payment_status: [PAY_0, PAY_2, PAY_3, PAY_4, PAY_5, PAY_6]
+  numeric: [LIMIT_BAL, AGE, BILL_AMT1, BILL_AMT2, BILL_AMT3, BILL_AMT4, BILL_AMT5, BILL_AMT6,
+            PAY_AMT1, PAY_AMT2, PAY_AMT3, PAY_AMT4, PAY_AMT5, PAY_AMT6]
+
+model:
+  name: credit-scoring-logreg
+  version: "1.0.0"
+  candidate_c: [0.01, 0.1, 1.0]
+  max_iter: 2000
+  class_weight: balanced
+  # Limiar de decisão escolhido no conjunto de validação (maximiza F1).
+  threshold_grid_start: 0.20
+  threshold_grid_stop: 0.80
+  threshold_grid_step: 0.01
+
+simulation:
+  batch_size: 3000
+  data_drift:
+    # Mudança de mix de clientes: mais clientes com limite baixo e mais jovens.
+    limit_bal_scale: 60000
+    young_age_cutoff: 30
+    young_boost: 3.0
+  concept_drift:
+    # Choque de liquidez: clientes adimplentes com alta utilização passam a inadimplir.
+    utilization_threshold: 0.60
+    p_new_default_high_utilization: 0.45
+    # Programa de renegociação: parte dos atrasados graves deixa de inadimplir.
+    late_payment_status_threshold: 2
+    p_cure_late_payers: 0.35
+
+drift:
+  psi_bins: 10
+  psi_moderate: 0.10
+  psi_severe: 0.25
+  pvalue_threshold: 0.05
+  discrete_max_unique: 12
+  calibration_bins: 10
+  calibration_pvalue_threshold: 0.01
+  min_labeled_rows: 500
+
+alerts:
+  auc_drop_warning: 0.02
+  auc_drop_critical: 0.05
+  prediction_psi_warning: 0.10
+  prediction_psi_critical: 0.25
+  default_rate_shift_warning_pp: 3.0
+  latency_ms_per_1k_warning: 1000.0
+
+evidently:
+  # PSI no Evidently usa bins de largura igual (Sturges) sobre os dados combinados;
+  # a implementação própria (src/drift/statistics.py) usa quantis da referência.
+  method: psi
+  threshold: 0.10
+  # Fração de colunas com drift para o Evidently declarar "Dataset Drift".
+  # O padrão do Evidently (0.5) é genérico; em crédito, >= 25% das variáveis
+  # deslocadas já justifica investigação (alinhado ao alerta por feature).
+  drift_share: 0.25
+
+mlflow:
+  training_experiment: credit-scoring-training
+  monitoring_experiment: credit-scoring-monitoring
+  registered_model_name: credit-scoring-baseline

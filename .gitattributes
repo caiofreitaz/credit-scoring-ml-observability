@@ -1,0 +1,8 @@
+# Normaliza quebras de linha: LF no repositório (CI Linux) e consistente no Windows.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.joblib binary
+# Relatórios gerados: marcados como gerados e sem diff textual (arquivos grandes).
+reports/**/*.html linguist-generated=true -diff
+reports/**/*.json linguist-generated=true

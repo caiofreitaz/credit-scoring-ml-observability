@@ -1,0 +1,29 @@
+# Versões validadas em conjunto com Python 3.12 (ver docs/VALIDACAO_FINAL.md).
+# Observação: pandas está fixado em 2.x porque evidently 0.7.23 é incompatível com pandas 3.x
+# (ImportError: infer_dtype_from_object) — incompatibilidade reproduzida durante a validação.
+
+# Dados e modelagem
+numpy==2.5.5
+pandas==2.3.3
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+xlrd==2.0.2
+PyYAML==6.0.3
+
+# Contratos de dados
+pandera==0.36.0
+
+# Drift e relatórios
+evidently==0.7.23
+matplotlib==3.11.2
+
+# Observabilidade
+mlflow==3.18.0
+skops==0.16.0
+psutil==7.2.2
+
+# Qualidade e testes
+pytest==9.2.0
+pytest-cov==7.1.0
+ruff==0.17.5
