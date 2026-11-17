@@ -1,0 +1,156 @@
+{
+  "scenario": "data_and_concept_drift",
+  "description": "Mudança de perfil de clientes combinada com a mudança de comportamento.",
+  "run_id": "20261116T194926Z-8cb19635",
+  "model_version": "1.0.0+3f888c17b195",
+  "rows": 3000,
+  "latency_ms": 13.946,
+  "latency_ms_per_1k": 4.649,
+  "predicted_positive_rate": 0.431,
+  "n_features_monitored": 21,
+  "n_drifted_features": 14,
+  "n_moderate_drift": 13,
+  "n_severe_drift": 1,
+  "drifted_features": [
+    "LIMIT_BAL",
+    "BILL_AMT1",
+    "AGE",
+    "BILL_AMT4",
+    "BILL_AMT2",
+    "BILL_AMT5",
+    "BILL_AMT3",
+    "BILL_AMT6",
+    "PAY_AMT4",
+    "PAY_AMT3",
+    "PAY_AMT5",
+    "PAY_AMT2",
+    "PAY_AMT1",
+    "PAY_AMT6"
+  ],
+  "prediction_drift": {
+    "prediction_psi": 0.33142,
+    "prediction_ks_statistic": 0.22144,
+    "prediction_ks_pvalue": 8.911e-78,
+    "reference_mean_score": 0.44918,
+    "current_mean_score": 0.52102
+  },
+  "performance": {
+    "current": {
+      "accuracy": 0.5616666666666666,
+      "precision": 0.41453982985305493,
+      "recall": 0.489945155393053,
+      "f1": 0.44909928780896524,
+      "roc_auc": 0.596296502337466,
+      "log_loss": 0.7643290024589106,
+      "brier": 0.2711364703343686,
+      "tn": 1149,
+      "fp": 757,
+      "fn": 558,
+      "tp": 536,
+      "predicted_positive_rate": 0.431,
+      "observed_default_rate": 0.36466666666666664,
+      "mean_score": 0.5210208455408232
+    },
+    "reference": {
+      "accuracy": 0.7393333333333333,
+      "precision": 0.43920765027322406,
+      "recall": 0.6462311557788945,
+      "f1": 0.5229768198454656,
+      "roc_auc": 0.7607415106918328,
+      "log_loss": 0.5852158905812805,
+      "brier": 0.19458702296185826,
+      "tn": 2684,
+      "fp": 821,
+      "fn": 352,
+      "tp": 643,
+      "predicted_positive_rate": 0.3253333333333333,
+      "observed_default_rate": 0.22111111111111112,
+      "mean_score": 0.44918004665420036
+    },
+    "deltas": {
+      "delta_roc_auc": -0.16445,
+      "delta_accuracy": -0.17767,
+      "delta_precision": -0.02467,
+      "delta_recall": -0.15629,
+      "delta_f1": -0.07388,
+      "delta_brier": 0.07655,
+      "delta_observed_default_rate": 0.14356
+    },
+    "roc_auc_ci95": [
+      0.5714,
+      0.6159
+    ],
+    "auc_drop": 0.16445,
+    "labeled_rows": 3000
+  },
+  "calibration": {
+    "calibration_chi2": 251.626,
+    "calibration_dof": 10,
+    "calibration_pvalue": 2.47e-48,
+    "calibration_mean_abs_gap_pp": 15.459
+  },
+  "diagnosis": {
+    "data_drift": true,
+    "prediction_drift": true,
+    "concept_drift_signal": true,
+    "performance_degradation": true,
+    "diagnosis": "Data Drift (P(X)) + Prediction Drift + Concept Drift confirmado (P(Y|X)) + Degradação de performance"
+  },
+  "alerts": {
+    "INFO": 0,
+    "WARNING": 1,
+    "CRITICAL": 4
+  },
+  "evidently": {
+    "method": "psi",
+    "threshold": 0.1,
+    "drifted_columns_count": 10.0,
+    "drifted_columns_share": 0.43478260869565216,
+    "drifted_columns": [
+      "AGE",
+      "BILL_AMT1",
+      "BILL_AMT2",
+      "BILL_AMT3",
+      "BILL_AMT4",
+      "BILL_AMT5",
+      "BILL_AMT6",
+      "LIMIT_BAL",
+      "default_next_month",
+      "prediction"
+    ],
+    "column_scores": {
+      "AGE": 0.17888,
+      "BILL_AMT1": 0.17069,
+      "BILL_AMT2": 0.16055,
+      "BILL_AMT3": 0.16029,
+      "BILL_AMT4": 0.16165,
+      "BILL_AMT5": 0.17307,
+      "BILL_AMT6": 0.16403,
+      "EDUCATION": 0.04525,
+      "LIMIT_BAL": 1.21147,
+      "PAY_0": 0.09657,
+      "PAY_2": 0.0981,
+      "PAY_3": 0.07602,
+      "PAY_4": 0.06263,
+      "PAY_5": 0.07368,
+      "PAY_6": 0.05933,
+      "PAY_AMT1": 0.02434,
+      "PAY_AMT2": 0.01493,
+      "PAY_AMT3": 0.01056,
+      "PAY_AMT4": 0.01863,
+      "PAY_AMT5": 0.00904,
+      "PAY_AMT6": 0.02581,
+      "default_next_month": 0.10107,
+      "prediction": 0.32445
+    },
+    "classification": {
+      "Accuracy": 0.56167,
+      "Precision": 0.41454,
+      "Recall": 0.48995,
+      "F1Score": 0.4491,
+      "RocAuc": 0.5963,
+      "LogLoss": 0.76433
+    },
+    "html": "reports/evidently/data_and_concept_drift_report.html"
+  }
+}

@@ -1,0 +1,13 @@
+schema_context,column,check,check_number,failure_case,index
+DataFrameSchema,inference_contract,column_in_schema,,SEX,
+Column,client_id,field_uniqueness,,709c741a57a462f4,14
+Column,client_id,field_uniqueness,,709c741a57a462f4,15
+Column,client_id,str_matches('^[0-9a-f]{16}$'),0,CLIENTE-123,16
+Column,LIMIT_BAL,not_nullable,,,4
+Column,LIMIT_BAL,dtype('int64'),,,4
+Column,EDUCATION,"isin([1, 2, 3, 4])",0,9,6
+Column,AGE,"in_range(18, 100)",0,15,0
+Column,AGE,"in_range(18, 100)",0,130,2
+Column,PAY_0,"isin([-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8])",0,12,8
+Column,BILL_AMT1,"in_range(-500000, 2000000)",0,9999999,12
+Column,PAY_AMT1,"in_range(0, 2000000)",0,-500,10

@@ -1,0 +1,103 @@
+{
+  "batch": "batch_invalid",
+  "status": "rejected",
+  "run_id": "20261116T194926Z-8cb19635",
+  "batch_name": "batch_invalid",
+  "mode": "inference",
+  "is_valid": false,
+  "n_rows": 200,
+  "n_failures": 12,
+  "rules_violated": [
+    "R02_NO_UNEXPECTED_COLUMNS",
+    "R03_DTYPES",
+    "R04_NOT_NULL",
+    "R05_NUMERIC_RANGES",
+    "R06_ALLOWED_CATEGORIES",
+    "R07_UNIQUE_ID",
+    "R08_ID_FORMAT"
+  ],
+  "rule_descriptions": {
+    "R02_NO_UNEXPECTED_COLUMNS": "Colunas fora do contrato são proibidas (minimização LGPD)",
+    "R03_DTYPES": "Tipos de dados devem ser inteiros (códigos/valores) e string (id)",
+    "R04_NOT_NULL": "Nenhuma coluna pode conter valores nulos",
+    "R05_NUMERIC_RANGES": "Valores numéricos dentro dos limites de negócio",
+    "R06_ALLOWED_CATEGORIES": "Códigos categóricos dentro do domínio documentado",
+    "R07_UNIQUE_ID": "Identificador de cliente não pode se repetir no lote",
+    "R08_ID_FORMAT": "Identificador deve ser pseudônimo (16 caracteres hexadecimais)"
+  },
+  "duration_s": 0.0519,
+  "violations": [
+    {
+      "rule_id": "R02_NO_UNEXPECTED_COLUMNS",
+      "column": "SEX",
+      "check": "column_in_schema",
+      "n_failures": 1,
+      "examples": "SEX"
+    },
+    {
+      "rule_id": "R03_DTYPES",
+      "column": "LIMIT_BAL",
+      "check": "dtype('int64')",
+      "n_failures": 1,
+      "examples": "nan"
+    },
+    {
+      "rule_id": "R04_NOT_NULL",
+      "column": "LIMIT_BAL",
+      "check": "not_nullable",
+      "n_failures": 1,
+      "examples": "nan"
+    },
+    {
+      "rule_id": "R05_NUMERIC_RANGES",
+      "column": "AGE",
+      "check": "in_range(18, 100)",
+      "n_failures": 2,
+      "examples": "15, 130"
+    },
+    {
+      "rule_id": "R05_NUMERIC_RANGES",
+      "column": "BILL_AMT1",
+      "check": "in_range(-500000, 2000000)",
+      "n_failures": 1,
+      "examples": "9999999"
+    },
+    {
+      "rule_id": "R05_NUMERIC_RANGES",
+      "column": "PAY_AMT1",
+      "check": "in_range(0, 2000000)",
+      "n_failures": 1,
+      "examples": "-500"
+    },
+    {
+      "rule_id": "R06_ALLOWED_CATEGORIES",
+      "column": "EDUCATION",
+      "check": "isin([1, 2, 3, 4])",
+      "n_failures": 1,
+      "examples": "9"
+    },
+    {
+      "rule_id": "R06_ALLOWED_CATEGORIES",
+      "column": "PAY_0",
+      "check": "isin([-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8])",
+      "n_failures": 1,
+      "examples": "12"
+    },
+    {
+      "rule_id": "R07_UNIQUE_ID",
+      "column": "client_id",
+      "check": "field_uniqueness",
+      "n_failures": 2,
+      "examples": "709c741a57a462f4"
+    },
+    {
+      "rule_id": "R08_ID_FORMAT",
+      "column": "client_id",
+      "check": "str_matches('^[0-9a-f]{16}$')",
+      "n_failures": 1,
+      "examples": "CLIENTE-123"
+    }
+  ],
+  "predictions_generated": 0,
+  "mlflow_run_id": "050974bfc5a440f1bd63c65d8517eaf5"
+}

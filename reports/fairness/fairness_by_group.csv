@@ -1,0 +1,14 @@
+attribute,group,n,suppressed,observed_default_rate,rejection_rate,approval_rate,tpr,fpr,roc_auc,approval_ratio_vs_best,fpr_gap_vs_min
+SEX,feminino,2736,False,0.2127,0.3052,0.6948,0.5962,0.2266,0.745,1.0,0.0
+SEX,masculino,1764,False,0.2341,0.3566,0.6434,0.7167,0.2465,0.7835,0.926,0.0199
+MARRIAGE,casado(a),2010,False,0.2358,0.3353,0.6647,0.6435,0.2402,0.7536,0.969,0.0125
+MARRIAGE,outros,60,True,,,,,,,,
+MARRIAGE,solteiro(a),2430,False,0.2082,0.314,0.686,0.6423,0.2277,0.7654,1.0,0.0
+EDUCATION,ensino médio,763,False,0.2438,0.3827,0.6173,0.7204,0.2738,0.7964,0.8477,0.083
+EDUCATION,outros,72,True,,,,,,,,
+EDUCATION,pós-graduação,1571,False,0.2094,0.2718,0.7282,0.5775,0.1908,0.7354,1.0,0.0
+EDUCATION,universitário,2094,False,0.2273,0.3515,0.6485,0.666,0.259,0.7642,0.8906,0.0682
+AGE_BAND,30-44,2235,False,0.2152,0.2953,0.7047,0.6175,0.207,0.7518,1.0,0.0
+AGE_BAND,45-59,720,False,0.2333,0.3694,0.6306,0.6905,0.2717,0.7659,0.8948,0.0647
+AGE_BAND,60+,49,True,,,,,,,,
+AGE_BAND,até 29,1496,False,0.2213,0.3503,0.6497,0.6707,0.2592,0.7758,0.922,0.0522

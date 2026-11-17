@@ -1,0 +1,12 @@
+{
+  "run_id": "20261116T194926Z-8cb19635",
+  "batch_name": "scenario_data_and_concept_drift_outcomes",
+  "mode": "outcome",
+  "is_valid": true,
+  "n_rows": 3000,
+  "n_failures": 0,
+  "rules_violated": [],
+  "rule_descriptions": {},
+  "duration_s": 0.0048,
+  "violations": []
+}

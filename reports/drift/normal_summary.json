@@ -1,0 +1,130 @@
+{
+  "scenario": "normal",
+  "description": "Produção estável: amostra aleatória do período de produção, sem alterações.",
+  "run_id": "20261116T194926Z-8cb19635",
+  "model_version": "1.0.0+3f888c17b195",
+  "rows": 3000,
+  "latency_ms": 14.007,
+  "latency_ms_per_1k": 4.669,
+  "predicted_positive_rate": 0.3167,
+  "n_features_monitored": 21,
+  "n_drifted_features": 0,
+  "n_moderate_drift": 0,
+  "n_severe_drift": 0,
+  "drifted_features": [],
+  "prediction_drift": {
+    "prediction_psi": 0.00236,
+    "prediction_ks_statistic": 0.01478,
+    "prediction_ks_pvalue": 0.8227,
+    "reference_mean_score": 0.44918,
+    "current_mean_score": 0.44484
+  },
+  "performance": {
+    "current": {
+      "accuracy": 0.7326666666666667,
+      "precision": 0.4378947368421053,
+      "recall": 0.6081871345029239,
+      "f1": 0.5091799265605875,
+      "roc_auc": 0.7447978214101748,
+      "log_loss": 0.5839707943621282,
+      "brier": 0.19571198527365566,
+      "tn": 1782,
+      "fp": 534,
+      "fn": 268,
+      "tp": 416,
+      "predicted_positive_rate": 0.31666666666666665,
+      "observed_default_rate": 0.228,
+      "mean_score": 0.44483803026345214
+    },
+    "reference": {
+      "accuracy": 0.7393333333333333,
+      "precision": 0.43920765027322406,
+      "recall": 0.6462311557788945,
+      "f1": 0.5229768198454656,
+      "roc_auc": 0.7607415106918328,
+      "log_loss": 0.5852158905812805,
+      "brier": 0.19458702296185826,
+      "tn": 2684,
+      "fp": 821,
+      "fn": 352,
+      "tp": 643,
+      "predicted_positive_rate": 0.3253333333333333,
+      "observed_default_rate": 0.22111111111111112,
+      "mean_score": 0.44918004665420036
+    },
+    "deltas": {
+      "delta_roc_auc": -0.01594,
+      "delta_accuracy": -0.00667,
+      "delta_precision": -0.00131,
+      "delta_recall": -0.03804,
+      "delta_f1": -0.0138,
+      "delta_brier": 0.00112,
+      "delta_observed_default_rate": 0.00689
+    },
+    "roc_auc_ci95": [
+      0.7229,
+      0.7654
+    ],
+    "auc_drop": 0.01594,
+    "labeled_rows": 3000
+  },
+  "calibration": {
+    "calibration_chi2": 14.2424,
+    "calibration_dof": 10,
+    "calibration_pvalue": 0.1622,
+    "calibration_mean_abs_gap_pp": 2.559
+  },
+  "diagnosis": {
+    "data_drift": false,
+    "prediction_drift": false,
+    "concept_drift_signal": false,
+    "performance_degradation": false,
+    "diagnosis": "Estável"
+  },
+  "alerts": {
+    "INFO": 1,
+    "WARNING": 0,
+    "CRITICAL": 0
+  },
+  "evidently": {
+    "method": "psi",
+    "threshold": 0.1,
+    "drifted_columns_count": 0.0,
+    "drifted_columns_share": 0.0,
+    "drifted_columns": [],
+    "column_scores": {
+      "AGE": 0.00401,
+      "BILL_AMT1": 0.00725,
+      "BILL_AMT2": 0.0059,
+      "BILL_AMT3": 0.00514,
+      "BILL_AMT4": 0.00528,
+      "BILL_AMT5": 0.00606,
+      "BILL_AMT6": 0.0032,
+      "EDUCATION": 0.00226,
+      "LIMIT_BAL": 0.00644,
+      "PAY_0": 0.00958,
+      "PAY_2": 0.00932,
+      "PAY_3": 0.00821,
+      "PAY_4": 0.00672,
+      "PAY_5": 0.00304,
+      "PAY_6": 0.00776,
+      "PAY_AMT1": 0.00522,
+      "PAY_AMT2": 0.00108,
+      "PAY_AMT3": 0.0008,
+      "PAY_AMT4": 0.00445,
+      "PAY_AMT5": 0.00342,
+      "PAY_AMT6": 0.0069,
+      "default_next_month": 0.00027,
+      "prediction": 0.00543
+    },
+    "classification": {
+      "Accuracy": 0.73267,
+      "Precision": 0.43789,
+      "Recall": 0.60819,
+      "F1Score": 0.50918,
+      "RocAuc": 0.7448,
+      "LogLoss": 0.58397
+    },
+    "html": "reports/evidently/normal_report.html"
+  }
+}

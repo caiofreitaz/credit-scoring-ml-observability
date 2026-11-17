@@ -1,0 +1,33 @@
+{
+  "min_group_size": 100,
+  "findings": [
+    {
+      "attribute": "AGE_BAND",
+      "min_approval_ratio_vs_best": 0.8948,
+      "four_fifths_rule_ok": true,
+      "roc_auc_spread": 0.024,
+      "max_fpr_gap": 0.0647
+    },
+    {
+      "attribute": "EDUCATION",
+      "min_approval_ratio_vs_best": 0.8477,
+      "four_fifths_rule_ok": true,
+      "roc_auc_spread": 0.061,
+      "max_fpr_gap": 0.083
+    },
+    {
+      "attribute": "MARRIAGE",
+      "min_approval_ratio_vs_best": 0.969,
+      "four_fifths_rule_ok": true,
+      "roc_auc_spread": 0.0118,
+      "max_fpr_gap": 0.0125
+    },
+    {
+      "attribute": "SEX",
+      "min_approval_ratio_vs_best": 0.926,
+      "four_fifths_rule_ok": true,
+      "roc_auc_spread": 0.0385,
+      "max_fpr_gap": 0.0199
+    }
+  ]
+}

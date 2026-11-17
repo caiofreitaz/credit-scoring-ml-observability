@@ -1,0 +1,167 @@
+[
+  {
+    "severity": "CRITICAL",
+    "code": "DATA_CONTRACT_VIOLATION",
+    "message": "Lote 'batch_invalid' rejeitado: 12 violações em 7 regras (R02_NO_UNEXPECTED_COLUMNS, R03_DTYPES, R04_NOT_NULL, R05_NUMERIC_RANGES, R06_ALLOWED_CATEGORIES, R07_UNIQUE_ID, R08_ID_FORMAT). Inferência bloqueada.",
+    "scope": "batch_invalid",
+    "metric": "contract_failures",
+    "value": 12.0,
+    "threshold": 0.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:34.985559+00:00"
+  },
+  {
+    "severity": "INFO",
+    "code": "DATA_DRIFT_NONE",
+    "message": "Nenhuma feature com drift relevante (PSI < limiar ou teste não significativo)",
+    "scope": "scenario:normal",
+    "metric": "n_drifted_features",
+    "value": 0.0,
+    "threshold": 0.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:35.366170+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "DATA_DRIFT_SEVERE",
+    "message": "Drift severo (PSI >= 0.25) em 1 feature(s): LIMIT_BAL; drift moderado em 13: BILL_AMT1, AGE, BILL_AMT4, BILL_AMT2, BILL_AMT5, BILL_AMT3, BILL_AMT6, PAY_AMT4, PAY_AMT3, PAY_AMT5, PAY_AMT2, PAY_AMT1, PAY_AMT6",
+    "scope": "scenario:data_drift",
+    "metric": "n_drifted_features",
+    "value": 14.0,
+    "threshold": 0.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:38.312425+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "PREDICTION_DRIFT",
+    "message": "Distribuição dos scores mudou (PSI=0.331)",
+    "scope": "scenario:data_drift",
+    "metric": "prediction_psi",
+    "value": 0.3314,
+    "threshold": 0.25,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:38.312448+00:00"
+  },
+  {
+    "severity": "WARNING",
+    "code": "PERFORMANCE_DEGRADATION",
+    "message": "ROC-AUC caiu de 0.7607 para 0.7360 (queda 0.0248)",
+    "scope": "scenario:data_drift",
+    "metric": "roc_auc_drop",
+    "value": 0.0248,
+    "threshold": 0.02,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:38.950248+00:00"
+  },
+  {
+    "severity": "WARNING",
+    "code": "DEFAULT_RATE_SHIFT",
+    "message": "Taxa de inadimplência observada mudou +5.6 p.p. (22.1% -> 27.7%)",
+    "scope": "scenario:data_drift",
+    "metric": "default_rate_shift_pp",
+    "value": 5.56,
+    "threshold": 3.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:38.950269+00:00"
+  },
+  {
+    "severity": "INFO",
+    "code": "DATA_DRIFT_NONE",
+    "message": "Nenhuma feature com drift relevante (PSI < limiar ou teste não significativo)",
+    "scope": "scenario:concept_drift",
+    "metric": "n_drifted_features",
+    "value": 0.0,
+    "threshold": 0.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:40.997853+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "PERFORMANCE_DEGRADATION",
+    "message": "ROC-AUC caiu de 0.7607 para 0.6582 (queda 0.1025)",
+    "scope": "scenario:concept_drift",
+    "metric": "roc_auc_drop",
+    "value": 0.1025,
+    "threshold": 0.05,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:41.684553+00:00"
+  },
+  {
+    "severity": "WARNING",
+    "code": "DEFAULT_RATE_SHIFT",
+    "message": "Taxa de inadimplência observada mudou +7.7 p.p. (22.1% -> 29.8%)",
+    "scope": "scenario:concept_drift",
+    "metric": "default_rate_shift_pp",
+    "value": 7.69,
+    "threshold": 3.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:41.684574+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "CONCEPT_DRIFT_CONFIRMED",
+    "message": "Relação score -> inadimplência mudou (teste de calibração significativo) e houve degradação de performance com outcomes observados",
+    "scope": "scenario:concept_drift",
+    "metric": "calibration_pvalue",
+    "value": 6.239e-39,
+    "threshold": 0.01,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:41.684578+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "DATA_DRIFT_SEVERE",
+    "message": "Drift severo (PSI >= 0.25) em 1 feature(s): LIMIT_BAL; drift moderado em 13: BILL_AMT1, AGE, BILL_AMT4, BILL_AMT2, BILL_AMT5, BILL_AMT3, BILL_AMT6, PAY_AMT4, PAY_AMT3, PAY_AMT5, PAY_AMT2, PAY_AMT1, PAY_AMT6",
+    "scope": "scenario:data_and_concept_drift",
+    "metric": "n_drifted_features",
+    "value": 14.0,
+    "threshold": 0.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:44.436812+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "PREDICTION_DRIFT",
+    "message": "Distribuição dos scores mudou (PSI=0.331)",
+    "scope": "scenario:data_and_concept_drift",
+    "metric": "prediction_psi",
+    "value": 0.3314,
+    "threshold": 0.25,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:44.436835+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "PERFORMANCE_DEGRADATION",
+    "message": "ROC-AUC caiu de 0.7607 para 0.5963 (queda 0.1644)",
+    "scope": "scenario:data_and_concept_drift",
+    "metric": "roc_auc_drop",
+    "value": 0.1644,
+    "threshold": 0.05,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:45.211214+00:00"
+  },
+  {
+    "severity": "WARNING",
+    "code": "DEFAULT_RATE_SHIFT",
+    "message": "Taxa de inadimplência observada mudou +14.4 p.p. (22.1% -> 36.5%)",
+    "scope": "scenario:data_and_concept_drift",
+    "metric": "default_rate_shift_pp",
+    "value": 14.36,
+    "threshold": 3.0,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:45.211235+00:00"
+  },
+  {
+    "severity": "CRITICAL",
+    "code": "CONCEPT_DRIFT_CONFIRMED",
+    "message": "Relação score -> inadimplência mudou (teste de calibração significativo) e houve degradação de performance com outcomes observados",
+    "scope": "scenario:data_and_concept_drift",
+    "metric": "calibration_pvalue",
+    "value": 2.47e-48,
+    "threshold": 0.01,
+    "run_id": "20261116T194926Z-8cb19635",
+    "timestamp": "2026-11-16T19:49:45.211241+00:00"
+  }
+]

@@ -1,0 +1,1226 @@
+{
+  "run_id": "20261116T194926Z-8cb19635",
+  "status": "SUCCESS",
+  "generated_at": "2026-11-16T19:49:48.498314+00:00",
+  "model": {
+    "model_name": "credit-scoring-logreg",
+    "model_version": "1.0.0+3f888c17b195",
+    "registered_model_name": "credit-scoring-baseline",
+    "registered_model_version": 1,
+    "threshold": 0.5,
+    "reference_metrics": {
+      "accuracy": 0.7393333333333333,
+      "precision": 0.43920765027322406,
+      "recall": 0.6462311557788945,
+      "f1": 0.5229768198454656,
+      "roc_auc": 0.7607415106918328,
+      "log_loss": 0.5852158905812805,
+      "brier": 0.19458702296185826,
+      "tn": 2684,
+      "fp": 821,
+      "fn": 352,
+      "tp": 643,
+      "predicted_positive_rate": 0.3253333333333333,
+      "observed_default_rate": 0.22111111111111112,
+      "mean_score": 0.44918004665420036
+    },
+    "trained_at": "2026-11-16T19:49:33.903452+00:00"
+  },
+  "batches": [
+    {
+      "batch": "batch_valid",
+      "status": "accepted",
+      "run_id": "20261116T194926Z-8cb19635",
+      "batch_name": "batch_valid",
+      "mode": "inference",
+      "is_valid": true,
+      "n_rows": 500,
+      "n_failures": 0,
+      "rules_violated": [],
+      "rule_descriptions": {},
+      "duration_s": 0.0127,
+      "violations": [],
+      "predictions_generated": 500,
+      "latency_ms": 11.268,
+      "predicted_positive_rate": 0.33,
+      "mlflow_run_id": "77843ca77db44c188bbbbbcc70f9649d"
+    },
+    {
+      "batch": "batch_invalid",
+      "status": "rejected",
+      "run_id": "20261116T194926Z-8cb19635",
+      "batch_name": "batch_invalid",
+      "mode": "inference",
+      "is_valid": false,
+      "n_rows": 200,
+      "n_failures": 12,
+      "rules_violated": [
+        "R02_NO_UNEXPECTED_COLUMNS",
+        "R03_DTYPES",
+        "R04_NOT_NULL",
+        "R05_NUMERIC_RANGES",
+        "R06_ALLOWED_CATEGORIES",
+        "R07_UNIQUE_ID",
+        "R08_ID_FORMAT"
+      ],
+      "rule_descriptions": {
+        "R02_NO_UNEXPECTED_COLUMNS": "Colunas fora do contrato são proibidas (minimização LGPD)",
+        "R03_DTYPES": "Tipos de dados devem ser inteiros (códigos/valores) e string (id)",
+        "R04_NOT_NULL": "Nenhuma coluna pode conter valores nulos",
+        "R05_NUMERIC_RANGES": "Valores numéricos dentro dos limites de negócio",
+        "R06_ALLOWED_CATEGORIES": "Códigos categóricos dentro do domínio documentado",
+        "R07_UNIQUE_ID": "Identificador de cliente não pode se repetir no lote",
+        "R08_ID_FORMAT": "Identificador deve ser pseudônimo (16 caracteres hexadecimais)"
+      },
+      "duration_s": 0.0519,
+      "violations": [
+        {
+          "rule_id": "R02_NO_UNEXPECTED_COLUMNS",
+          "column": "SEX",
+          "check": "column_in_schema",
+          "n_failures": 1,
+          "examples": "SEX"
+        },
+        {
+          "rule_id": "R03_DTYPES",
+          "column": "LIMIT_BAL",
+          "check": "dtype('int64')",
+          "n_failures": 1,
+          "examples": "nan"
+        },
+        {
+          "rule_id": "R04_NOT_NULL",
+          "column": "LIMIT_BAL",
+          "check": "not_nullable",
+          "n_failures": 1,
+          "examples": "nan"
+        },
+        {
+          "rule_id": "R05_NUMERIC_RANGES",
+          "column": "AGE",
+          "check": "in_range(18, 100)",
+          "n_failures": 2,
+          "examples": "15, 130"
+        },
+        {
+          "rule_id": "R05_NUMERIC_RANGES",
+          "column": "BILL_AMT1",
+          "check": "in_range(-500000, 2000000)",
+          "n_failures": 1,
+          "examples": "9999999"
+        },
+        {
+          "rule_id": "R05_NUMERIC_RANGES",
+          "column": "PAY_AMT1",
+          "check": "in_range(0, 2000000)",
+          "n_failures": 1,
+          "examples": "-500"
+        },
+        {
+          "rule_id": "R06_ALLOWED_CATEGORIES",
+          "column": "EDUCATION",
+          "check": "isin([1, 2, 3, 4])",
+          "n_failures": 1,
+          "examples": "9"
+        },
+        {
+          "rule_id": "R06_ALLOWED_CATEGORIES",
+          "column": "PAY_0",
+          "check": "isin([-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8])",
+          "n_failures": 1,
+          "examples": "12"
+        },
+        {
+          "rule_id": "R07_UNIQUE_ID",
+          "column": "client_id",
+          "check": "field_uniqueness",
+          "n_failures": 2,
+          "examples": "709c741a57a462f4"
+        },
+        {
+          "rule_id": "R08_ID_FORMAT",
+          "column": "client_id",
+          "check": "str_matches('^[0-9a-f]{16}$')",
+          "n_failures": 1,
+          "examples": "CLIENTE-123"
+        }
+      ],
+      "predictions_generated": 0,
+      "mlflow_run_id": "050974bfc5a440f1bd63c65d8517eaf5"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "normal",
+      "description": "Produção estável: amostra aleatória do período de produção, sem alterações.",
+      "run_id": "20261116T194926Z-8cb19635",
+      "model_version": "1.0.0+3f888c17b195",
+      "rows": 3000,
+      "latency_ms": 14.007,
+      "latency_ms_per_1k": 4.669,
+      "predicted_positive_rate": 0.3167,
+      "n_features_monitored": 21,
+      "n_drifted_features": 0,
+      "n_moderate_drift": 0,
+      "n_severe_drift": 0,
+      "drifted_features": [],
+      "prediction_drift": {
+        "prediction_psi": 0.00236,
+        "prediction_ks_statistic": 0.01478,
+        "prediction_ks_pvalue": 0.8227,
+        "reference_mean_score": 0.44918,
+        "current_mean_score": 0.44484
+      },
+      "performance": {
+        "current": {
+          "accuracy": 0.7326666666666667,
+          "precision": 0.4378947368421053,
+          "recall": 0.6081871345029239,
+          "f1": 0.5091799265605875,
+          "roc_auc": 0.7447978214101748,
+          "log_loss": 0.5839707943621282,
+          "brier": 0.19571198527365566,
+          "tn": 1782,
+          "fp": 534,
+          "fn": 268,
+          "tp": 416,
+          "predicted_positive_rate": 0.31666666666666665,
+          "observed_default_rate": 0.228,
+          "mean_score": 0.44483803026345214
+        },
+        "reference": {
+          "accuracy": 0.7393333333333333,
+          "precision": 0.43920765027322406,
+          "recall": 0.6462311557788945,
+          "f1": 0.5229768198454656,
+          "roc_auc": 0.7607415106918328,
+          "log_loss": 0.5852158905812805,
+          "brier": 0.19458702296185826,
+          "tn": 2684,
+          "fp": 821,
+          "fn": 352,
+          "tp": 643,
+          "predicted_positive_rate": 0.3253333333333333,
+          "observed_default_rate": 0.22111111111111112,
+          "mean_score": 0.44918004665420036
+        },
+        "deltas": {
+          "delta_roc_auc": -0.01594,
+          "delta_accuracy": -0.00667,
+          "delta_precision": -0.00131,
+          "delta_recall": -0.03804,
+          "delta_f1": -0.0138,
+          "delta_brier": 0.00112,
+          "delta_observed_default_rate": 0.00689
+        },
+        "roc_auc_ci95": [
+          0.7229,
+          0.7654
+        ],
+        "auc_drop": 0.01594,
+        "labeled_rows": 3000
+      },
+      "calibration": {
+        "calibration_chi2": 14.2424,
+        "calibration_dof": 10,
+        "calibration_pvalue": 0.1622,
+        "calibration_mean_abs_gap_pp": 2.559
+      },
+      "diagnosis": {
+        "data_drift": false,
+        "prediction_drift": false,
+        "concept_drift_signal": false,
+        "performance_degradation": false,
+        "diagnosis": "Estável"
+      },
+      "alerts": {
+        "INFO": 1,
+        "WARNING": 0,
+        "CRITICAL": 0
+      },
+      "evidently": {
+        "method": "psi",
+        "threshold": 0.1,
+        "drifted_columns_count": 0.0,
+        "drifted_columns_share": 0.0,
+        "drifted_columns": [],
+        "column_scores": {
+          "AGE": 0.00401,
+          "BILL_AMT1": 0.00725,
+          "BILL_AMT2": 0.0059,
+          "BILL_AMT3": 0.00514,
+          "BILL_AMT4": 0.00528,
+          "BILL_AMT5": 0.00606,
+          "BILL_AMT6": 0.0032,
+          "EDUCATION": 0.00226,
+          "LIMIT_BAL": 0.00644,
+          "PAY_0": 0.00958,
+          "PAY_2": 0.00932,
+          "PAY_3": 0.00821,
+          "PAY_4": 0.00672,
+          "PAY_5": 0.00304,
+          "PAY_6": 0.00776,
+          "PAY_AMT1": 0.00522,
+          "PAY_AMT2": 0.00108,
+          "PAY_AMT3": 0.0008,
+          "PAY_AMT4": 0.00445,
+          "PAY_AMT5": 0.00342,
+          "PAY_AMT6": 0.0069,
+          "default_next_month": 0.00027,
+          "prediction": 0.00543
+        },
+        "classification": {
+          "Accuracy": 0.73267,
+          "Precision": 0.43789,
+          "Recall": 0.60819,
+          "F1Score": 0.50918,
+          "RocAuc": 0.7448,
+          "LogLoss": 0.58397
+        },
+        "html": "reports/evidently/normal_report.html"
+      }
+    },
+    {
+      "scenario": "data_drift",
+      "description": "Mudança no perfil de clientes (P(X)): mais clientes com limite baixo e mais jovens.",
+      "run_id": "20261116T194926Z-8cb19635",
+      "model_version": "1.0.0+3f888c17b195",
+      "rows": 3000,
+      "latency_ms": 14.718,
+      "latency_ms_per_1k": 4.906,
+      "predicted_positive_rate": 0.431,
+      "n_features_monitored": 21,
+      "n_drifted_features": 14,
+      "n_moderate_drift": 13,
+      "n_severe_drift": 1,
+      "drifted_features": [
+        "LIMIT_BAL",
+        "BILL_AMT1",
+        "AGE",
+        "BILL_AMT4",
+        "BILL_AMT2",
+        "BILL_AMT5",
+        "BILL_AMT3",
+        "BILL_AMT6",
+        "PAY_AMT4",
+        "PAY_AMT3",
+        "PAY_AMT5",
+        "PAY_AMT2",
+        "PAY_AMT1",
+        "PAY_AMT6"
+      ],
+      "prediction_drift": {
+        "prediction_psi": 0.33142,
+        "prediction_ks_statistic": 0.22144,
+        "prediction_ks_pvalue": 8.911e-78,
+        "reference_mean_score": 0.44918,
+        "current_mean_score": 0.52102
+      },
+      "performance": {
+        "current": {
+          "accuracy": 0.6743333333333333,
+          "precision": 0.4431554524361949,
+          "recall": 0.6903614457831325,
+          "f1": 0.5398021667451719,
+          "roc_auc": 0.7359757925712064,
+          "log_loss": 0.6650218922266148,
+          "brier": 0.2298670931564942,
+          "tn": 1450,
+          "fp": 720,
+          "fn": 257,
+          "tp": 573,
+          "predicted_positive_rate": 0.431,
+          "observed_default_rate": 0.27666666666666667,
+          "mean_score": 0.5210208455408232
+        },
+        "reference": {
+          "accuracy": 0.7393333333333333,
+          "precision": 0.43920765027322406,
+          "recall": 0.6462311557788945,
+          "f1": 0.5229768198454656,
+          "roc_auc": 0.7607415106918328,
+          "log_loss": 0.5852158905812805,
+          "brier": 0.19458702296185826,
+          "tn": 2684,
+          "fp": 821,
+          "fn": 352,
+          "tp": 643,
+          "predicted_positive_rate": 0.3253333333333333,
+          "observed_default_rate": 0.22111111111111112,
+          "mean_score": 0.44918004665420036
+        },
+        "deltas": {
+          "delta_roc_auc": -0.02477,
+          "delta_accuracy": -0.065,
+          "delta_precision": 0.00395,
+          "delta_recall": 0.04413,
+          "delta_f1": 0.01683,
+          "delta_brier": 0.03528,
+          "delta_observed_default_rate": 0.05556
+        },
+        "roc_auc_ci95": [
+          0.7135,
+          0.7569
+        ],
+        "auc_drop": 0.02477,
+        "labeled_rows": 3000
+      },
+      "calibration": {
+        "calibration_chi2": 11.3027,
+        "calibration_dof": 10,
+        "calibration_pvalue": 0.3344,
+        "calibration_mean_abs_gap_pp": 2.511
+      },
+      "diagnosis": {
+        "data_drift": true,
+        "prediction_drift": true,
+        "concept_drift_signal": false,
+        "performance_degradation": true,
+        "diagnosis": "Data Drift (P(X)) + Prediction Drift + Degradação de performance"
+      },
+      "alerts": {
+        "INFO": 0,
+        "WARNING": 2,
+        "CRITICAL": 2
+      },
+      "evidently": {
+        "method": "psi",
+        "threshold": 0.1,
+        "drifted_columns_count": 9.0,
+        "drifted_columns_share": 0.391304347826087,
+        "drifted_columns": [
+          "AGE",
+          "BILL_AMT1",
+          "BILL_AMT2",
+          "BILL_AMT3",
+          "BILL_AMT4",
+          "BILL_AMT5",
+          "BILL_AMT6",
+          "LIMIT_BAL",
+          "prediction"
+        ],
+        "column_scores": {
+          "AGE": 0.17888,
+          "BILL_AMT1": 0.17069,
+          "BILL_AMT2": 0.16055,
+          "BILL_AMT3": 0.16029,
+          "BILL_AMT4": 0.16165,
+          "BILL_AMT5": 0.17307,
+          "BILL_AMT6": 0.16403,
+          "EDUCATION": 0.04525,
+          "LIMIT_BAL": 1.21147,
+          "PAY_0": 0.09657,
+          "PAY_2": 0.0981,
+          "PAY_3": 0.07602,
+          "PAY_4": 0.06263,
+          "PAY_5": 0.07368,
+          "PAY_6": 0.05933,
+          "PAY_AMT1": 0.02434,
+          "PAY_AMT2": 0.01493,
+          "PAY_AMT3": 0.01056,
+          "PAY_AMT4": 0.01863,
+          "PAY_AMT5": 0.00904,
+          "PAY_AMT6": 0.02581,
+          "default_next_month": 0.01656,
+          "prediction": 0.32445
+        },
+        "classification": {
+          "Accuracy": 0.67433,
+          "Precision": 0.44316,
+          "Recall": 0.69036,
+          "F1Score": 0.5398,
+          "RocAuc": 0.73598,
+          "LogLoss": 0.66502
+        },
+        "html": "reports/evidently/data_drift_report.html"
+      }
+    },
+    {
+      "scenario": "concept_drift",
+      "description": "Mesmos clientes do cenário normal; choque de liquidez e renegociação mudam P(Y|X).",
+      "run_id": "20261116T194926Z-8cb19635",
+      "model_version": "1.0.0+3f888c17b195",
+      "rows": 3000,
+      "latency_ms": 14.613,
+      "latency_ms_per_1k": 4.871,
+      "predicted_positive_rate": 0.3167,
+      "n_features_monitored": 21,
+      "n_drifted_features": 0,
+      "n_moderate_drift": 0,
+      "n_severe_drift": 0,
+      "drifted_features": [],
+      "prediction_drift": {
+        "prediction_psi": 0.00236,
+        "prediction_ks_statistic": 0.01478,
+        "prediction_ks_pvalue": 0.8227,
+        "reference_mean_score": 0.44918,
+        "current_mean_score": 0.44484
+      },
+      "performance": {
+        "current": {
+          "accuracy": 0.6446666666666667,
+          "precision": 0.4094736842105263,
+          "recall": 0.43512304250559286,
+          "f1": 0.42190889370932755,
+          "roc_auc": 0.6582248226543528,
+          "log_loss": 0.6649943730987403,
+          "brier": 0.23039601979566054,
+          "tn": 1545,
+          "fp": 561,
+          "fn": 505,
+          "tp": 389,
+          "predicted_positive_rate": 0.31666666666666665,
+          "observed_default_rate": 0.298,
+          "mean_score": 0.44483803026345214
+        },
+        "reference": {
+          "accuracy": 0.7393333333333333,
+          "precision": 0.43920765027322406,
+          "recall": 0.6462311557788945,
+          "f1": 0.5229768198454656,
+          "roc_auc": 0.7607415106918328,
+          "log_loss": 0.5852158905812805,
+          "brier": 0.19458702296185826,
+          "tn": 2684,
+          "fp": 821,
+          "fn": 352,
+          "tp": 643,
+          "predicted_positive_rate": 0.3253333333333333,
+          "observed_default_rate": 0.22111111111111112,
+          "mean_score": 0.44918004665420036
+        },
+        "deltas": {
+          "delta_roc_auc": -0.10252,
+          "delta_accuracy": -0.09467,
+          "delta_precision": -0.02973,
+          "delta_recall": -0.21111,
+          "delta_f1": -0.10107,
+          "delta_brier": 0.03581,
+          "delta_observed_default_rate": 0.07689
+        },
+        "roc_auc_ci95": [
+          0.6402,
+          0.6775
+        ],
+        "auc_drop": 0.10252,
+        "labeled_rows": 3000
+      },
+      "calibration": {
+        "calibration_chi2": 206.7698,
+        "calibration_dof": 10,
+        "calibration_pvalue": 6.239e-39,
+        "calibration_mean_abs_gap_pp": 11.565
+      },
+      "diagnosis": {
+        "data_drift": false,
+        "prediction_drift": false,
+        "concept_drift_signal": true,
+        "performance_degradation": true,
+        "diagnosis": "Concept Drift confirmado (P(Y|X)) + Degradação de performance"
+      },
+      "alerts": {
+        "INFO": 1,
+        "WARNING": 1,
+        "CRITICAL": 2
+      },
+      "evidently": {
+        "method": "psi",
+        "threshold": 0.1,
+        "drifted_columns_count": 0.0,
+        "drifted_columns_share": 0.0,
+        "drifted_columns": [],
+        "column_scores": {
+          "AGE": 0.00401,
+          "BILL_AMT1": 0.00725,
+          "BILL_AMT2": 0.0059,
+          "BILL_AMT3": 0.00514,
+          "BILL_AMT4": 0.00528,
+          "BILL_AMT5": 0.00606,
+          "BILL_AMT6": 0.0032,
+          "EDUCATION": 0.00226,
+          "LIMIT_BAL": 0.00644,
+          "PAY_0": 0.00958,
+          "PAY_2": 0.00932,
+          "PAY_3": 0.00821,
+          "PAY_4": 0.00672,
+          "PAY_5": 0.00304,
+          "PAY_6": 0.00776,
+          "PAY_AMT1": 0.00522,
+          "PAY_AMT2": 0.00108,
+          "PAY_AMT3": 0.0008,
+          "PAY_AMT4": 0.00445,
+          "PAY_AMT5": 0.00342,
+          "PAY_AMT6": 0.0069,
+          "default_next_month": 0.03094,
+          "prediction": 0.00543
+        },
+        "classification": {
+          "Accuracy": 0.64467,
+          "Precision": 0.40947,
+          "Recall": 0.43512,
+          "F1Score": 0.42191,
+          "RocAuc": 0.65822,
+          "LogLoss": 0.66499
+        },
+        "html": "reports/evidently/concept_drift_report.html"
+      }
+    },
+    {
+      "scenario": "data_and_concept_drift",
+      "description": "Mudança de perfil de clientes combinada com a mudança de comportamento.",
+      "run_id": "20261116T194926Z-8cb19635",
+      "model_version": "1.0.0+3f888c17b195",
+      "rows": 3000,
+      "latency_ms": 13.946,
+      "latency_ms_per_1k": 4.649,
+      "predicted_positive_rate": 0.431,
+      "n_features_monitored": 21,
+      "n_drifted_features": 14,
+      "n_moderate_drift": 13,
+      "n_severe_drift": 1,
+      "drifted_features": [
+        "LIMIT_BAL",
+        "BILL_AMT1",
+        "AGE",
+        "BILL_AMT4",
+        "BILL_AMT2",
+        "BILL_AMT5",
+        "BILL_AMT3",
+        "BILL_AMT6",
+        "PAY_AMT4",
+        "PAY_AMT3",
+        "PAY_AMT5",
+        "PAY_AMT2",
+        "PAY_AMT1",
+        "PAY_AMT6"
+      ],
+      "prediction_drift": {
+        "prediction_psi": 0.33142,
+        "prediction_ks_statistic": 0.22144,
+        "prediction_ks_pvalue": 8.911e-78,
+        "reference_mean_score": 0.44918,
+        "current_mean_score": 0.52102
+      },
+      "performance": {
+        "current": {
+          "accuracy": 0.5616666666666666,
+          "precision": 0.41453982985305493,
+          "recall": 0.489945155393053,
+          "f1": 0.44909928780896524,
+          "roc_auc": 0.596296502337466,
+          "log_loss": 0.7643290024589106,
+          "brier": 0.2711364703343686,
+          "tn": 1149,
+          "fp": 757,
+          "fn": 558,
+          "tp": 536,
+          "predicted_positive_rate": 0.431,
+          "observed_default_rate": 0.36466666666666664,
+          "mean_score": 0.5210208455408232
+        },
+        "reference": {
+          "accuracy": 0.7393333333333333,
+          "precision": 0.43920765027322406,
+          "recall": 0.6462311557788945,
+          "f1": 0.5229768198454656,
+          "roc_auc": 0.7607415106918328,
+          "log_loss": 0.5852158905812805,
+          "brier": 0.19458702296185826,
+          "tn": 2684,
+          "fp": 821,
+          "fn": 352,
+          "tp": 643,
+          "predicted_positive_rate": 0.3253333333333333,
+          "observed_default_rate": 0.22111111111111112,
+          "mean_score": 0.44918004665420036
+        },
+        "deltas": {
+          "delta_roc_auc": -0.16445,
+          "delta_accuracy": -0.17767,
+          "delta_precision": -0.02467,
+          "delta_recall": -0.15629,
+          "delta_f1": -0.07388,
+          "delta_brier": 0.07655,
+          "delta_observed_default_rate": 0.14356
+        },
+        "roc_auc_ci95": [
+          0.5714,
+          0.6159
+        ],
+        "auc_drop": 0.16445,
+        "labeled_rows": 3000
+      },
+      "calibration": {
+        "calibration_chi2": 251.626,
+        "calibration_dof": 10,
+        "calibration_pvalue": 2.47e-48,
+        "calibration_mean_abs_gap_pp": 15.459
+      },
+      "diagnosis": {
+        "data_drift": true,
+        "prediction_drift": true,
+        "concept_drift_signal": true,
+        "performance_degradation": true,
+        "diagnosis": "Data Drift (P(X)) + Prediction Drift + Concept Drift confirmado (P(Y|X)) + Degradação de performance"
+      },
+      "alerts": {
+        "INFO": 0,
+        "WARNING": 1,
+        "CRITICAL": 4
+      },
+      "evidently": {
+        "method": "psi",
+        "threshold": 0.1,
+        "drifted_columns_count": 10.0,
+        "drifted_columns_share": 0.43478260869565216,
+        "drifted_columns": [
+          "AGE",
+          "BILL_AMT1",
+          "BILL_AMT2",
+          "BILL_AMT3",
+          "BILL_AMT4",
+          "BILL_AMT5",
+          "BILL_AMT6",
+          "LIMIT_BAL",
+          "default_next_month",
+          "prediction"
+        ],
+        "column_scores": {
+          "AGE": 0.17888,
+          "BILL_AMT1": 0.17069,
+          "BILL_AMT2": 0.16055,
+          "BILL_AMT3": 0.16029,
+          "BILL_AMT4": 0.16165,
+          "BILL_AMT5": 0.17307,
+          "BILL_AMT6": 0.16403,
+          "EDUCATION": 0.04525,
+          "LIMIT_BAL": 1.21147,
+          "PAY_0": 0.09657,
+          "PAY_2": 0.0981,
+          "PAY_3": 0.07602,
+          "PAY_4": 0.06263,
+          "PAY_5": 0.07368,
+          "PAY_6": 0.05933,
+          "PAY_AMT1": 0.02434,
+          "PAY_AMT2": 0.01493,
+          "PAY_AMT3": 0.01056,
+          "PAY_AMT4": 0.01863,
+          "PAY_AMT5": 0.00904,
+          "PAY_AMT6": 0.02581,
+          "default_next_month": 0.10107,
+          "prediction": 0.32445
+        },
+        "classification": {
+          "Accuracy": 0.56167,
+          "Precision": 0.41454,
+          "Recall": 0.48995,
+          "F1Score": 0.4491,
+          "RocAuc": 0.5963,
+          "LogLoss": 0.76433
+        },
+        "html": "reports/evidently/data_and_concept_drift_report.html"
+      }
+    }
+  ],
+  "alerts_total": {
+    "INFO": 2,
+    "WARNING": 4,
+    "CRITICAL": 9
+  },
+  "alerts": [
+    {
+      "severity": "CRITICAL",
+      "code": "DATA_CONTRACT_VIOLATION",
+      "message": "Lote 'batch_invalid' rejeitado: 12 violações em 7 regras (R02_NO_UNEXPECTED_COLUMNS, R03_DTYPES, R04_NOT_NULL, R05_NUMERIC_RANGES, R06_ALLOWED_CATEGORIES, R07_UNIQUE_ID, R08_ID_FORMAT). Inferência bloqueada.",
+      "scope": "batch_invalid",
+      "metric": "contract_failures",
+      "value": 12.0,
+      "threshold": 0.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:34.985559+00:00"
+    },
+    {
+      "severity": "INFO",
+      "code": "DATA_DRIFT_NONE",
+      "message": "Nenhuma feature com drift relevante (PSI < limiar ou teste não significativo)",
+      "scope": "scenario:normal",
+      "metric": "n_drifted_features",
+      "value": 0.0,
+      "threshold": 0.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:35.366170+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "DATA_DRIFT_SEVERE",
+      "message": "Drift severo (PSI >= 0.25) em 1 feature(s): LIMIT_BAL; drift moderado em 13: BILL_AMT1, AGE, BILL_AMT4, BILL_AMT2, BILL_AMT5, BILL_AMT3, BILL_AMT6, PAY_AMT4, PAY_AMT3, PAY_AMT5, PAY_AMT2, PAY_AMT1, PAY_AMT6",
+      "scope": "scenario:data_drift",
+      "metric": "n_drifted_features",
+      "value": 14.0,
+      "threshold": 0.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:38.312425+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "PREDICTION_DRIFT",
+      "message": "Distribuição dos scores mudou (PSI=0.331)",
+      "scope": "scenario:data_drift",
+      "metric": "prediction_psi",
+      "value": 0.3314,
+      "threshold": 0.25,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:38.312448+00:00"
+    },
+    {
+      "severity": "WARNING",
+      "code": "PERFORMANCE_DEGRADATION",
+      "message": "ROC-AUC caiu de 0.7607 para 0.7360 (queda 0.0248)",
+      "scope": "scenario:data_drift",
+      "metric": "roc_auc_drop",
+      "value": 0.0248,
+      "threshold": 0.02,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:38.950248+00:00"
+    },
+    {
+      "severity": "WARNING",
+      "code": "DEFAULT_RATE_SHIFT",
+      "message": "Taxa de inadimplência observada mudou +5.6 p.p. (22.1% -> 27.7%)",
+      "scope": "scenario:data_drift",
+      "metric": "default_rate_shift_pp",
+      "value": 5.56,
+      "threshold": 3.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:38.950269+00:00"
+    },
+    {
+      "severity": "INFO",
+      "code": "DATA_DRIFT_NONE",
+      "message": "Nenhuma feature com drift relevante (PSI < limiar ou teste não significativo)",
+      "scope": "scenario:concept_drift",
+      "metric": "n_drifted_features",
+      "value": 0.0,
+      "threshold": 0.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:40.997853+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "PERFORMANCE_DEGRADATION",
+      "message": "ROC-AUC caiu de 0.7607 para 0.6582 (queda 0.1025)",
+      "scope": "scenario:concept_drift",
+      "metric": "roc_auc_drop",
+      "value": 0.1025,
+      "threshold": 0.05,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:41.684553+00:00"
+    },
+    {
+      "severity": "WARNING",
+      "code": "DEFAULT_RATE_SHIFT",
+      "message": "Taxa de inadimplência observada mudou +7.7 p.p. (22.1% -> 29.8%)",
+      "scope": "scenario:concept_drift",
+      "metric": "default_rate_shift_pp",
+      "value": 7.69,
+      "threshold": 3.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:41.684574+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "CONCEPT_DRIFT_CONFIRMED",
+      "message": "Relação score -> inadimplência mudou (teste de calibração significativo) e houve degradação de performance com outcomes observados",
+      "scope": "scenario:concept_drift",
+      "metric": "calibration_pvalue",
+      "value": 6.239e-39,
+      "threshold": 0.01,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:41.684578+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "DATA_DRIFT_SEVERE",
+      "message": "Drift severo (PSI >= 0.25) em 1 feature(s): LIMIT_BAL; drift moderado em 13: BILL_AMT1, AGE, BILL_AMT4, BILL_AMT2, BILL_AMT5, BILL_AMT3, BILL_AMT6, PAY_AMT4, PAY_AMT3, PAY_AMT5, PAY_AMT2, PAY_AMT1, PAY_AMT6",
+      "scope": "scenario:data_and_concept_drift",
+      "metric": "n_drifted_features",
+      "value": 14.0,
+      "threshold": 0.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:44.436812+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "PREDICTION_DRIFT",
+      "message": "Distribuição dos scores mudou (PSI=0.331)",
+      "scope": "scenario:data_and_concept_drift",
+      "metric": "prediction_psi",
+      "value": 0.3314,
+      "threshold": 0.25,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:44.436835+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "PERFORMANCE_DEGRADATION",
+      "message": "ROC-AUC caiu de 0.7607 para 0.5963 (queda 0.1644)",
+      "scope": "scenario:data_and_concept_drift",
+      "metric": "roc_auc_drop",
+      "value": 0.1644,
+      "threshold": 0.05,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:45.211214+00:00"
+    },
+    {
+      "severity": "WARNING",
+      "code": "DEFAULT_RATE_SHIFT",
+      "message": "Taxa de inadimplência observada mudou +14.4 p.p. (22.1% -> 36.5%)",
+      "scope": "scenario:data_and_concept_drift",
+      "metric": "default_rate_shift_pp",
+      "value": 14.36,
+      "threshold": 3.0,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:45.211235+00:00"
+    },
+    {
+      "severity": "CRITICAL",
+      "code": "CONCEPT_DRIFT_CONFIRMED",
+      "message": "Relação score -> inadimplência mudou (teste de calibração significativo) e houve degradação de performance com outcomes observados",
+      "scope": "scenario:data_and_concept_drift",
+      "metric": "calibration_pvalue",
+      "value": 2.47e-48,
+      "threshold": 0.01,
+      "run_id": "20261116T194926Z-8cb19635",
+      "timestamp": "2026-11-16T19:49:45.211241+00:00"
+    }
+  ],
+  "pipeline": {
+    "n_stages": 15,
+    "n_success": 14,
+    "n_failed": 0,
+    "n_blocked": 1,
+    "total_duration_s": 22.043,
+    "stages": [
+      {
+        "name": "download",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:26.342823+00:00",
+        "finished_at": "2026-11-16T19:49:26.343070+00:00",
+        "duration_s": 0.0002,
+        "records_in": null,
+        "records_out": 30000,
+        "error": null,
+        "details": {
+          "source": "github_mirror_original_xls",
+          "sha256": "84ba892a2a55a0d711259f30084753f22b14b0c56303baf25ced4e7600230248"
+        },
+        "resources": {
+          "process_rss_mb": 341.0,
+          "process_cpu_time_s": 4.77
+        }
+      },
+      {
+        "name": "prepare",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:26.343328+00:00",
+        "finished_at": "2026-11-16T19:49:26.643217+00:00",
+        "duration_s": 0.2998,
+        "records_in": 30000,
+        "records_out": 30000,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 388.63,
+          "process_cpu_time_s": 5.07
+        }
+      },
+      {
+        "name": "eda",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:26.643600+00:00",
+        "finished_at": "2026-11-16T19:49:26.981671+00:00",
+        "duration_s": 0.338,
+        "records_in": 14999,
+        "records_out": null,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 393.0,
+          "process_cpu_time_s": 5.4
+        }
+      },
+      {
+        "name": "demo_batches",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:26.982167+00:00",
+        "finished_at": "2026-11-16T19:49:27.003415+00:00",
+        "duration_s": 0.0212,
+        "records_in": null,
+        "records_out": null,
+        "error": null,
+        "details": {
+          "valid": "/home/claude/credit-scoring-ml-observability/data/production/batch_valid.csv",
+          "invalid": "/home/claude/credit-scoring-ml-observability/data/invalid/batch_invalid.csv"
+        },
+        "resources": {
+          "process_rss_mb": 393.02,
+          "process_cpu_time_s": 5.42
+        }
+      },
+      {
+        "name": "train",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:27.004166+00:00",
+        "finished_at": "2026-11-16T19:49:33.977108+00:00",
+        "duration_s": 6.9728,
+        "records_in": 14999,
+        "records_out": null,
+        "error": null,
+        "details": {
+          "model_version": "1.0.0+3f888c17b195"
+        },
+        "resources": {
+          "process_rss_mb": 452.38,
+          "process_cpu_time_s": 9.0
+        }
+      },
+      {
+        "name": "training_reports",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:33.977481+00:00",
+        "finished_at": "2026-11-16T19:49:34.631590+00:00",
+        "duration_s": 0.654,
+        "records_in": null,
+        "records_out": null,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 452.88,
+          "process_cpu_time_s": 9.63
+        }
+      },
+      {
+        "name": "fairness_audit",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:34.632015+00:00",
+        "finished_at": "2026-11-16T19:49:34.791704+00:00",
+        "duration_s": 0.1596,
+        "records_in": null,
+        "records_out": null,
+        "error": null,
+        "details": {
+          "findings": [
+            {
+              "attribute": "AGE_BAND",
+              "min_approval_ratio_vs_best": 0.8948,
+              "four_fifths_rule_ok": true,
+              "roc_auc_spread": 0.024,
+              "max_fpr_gap": 0.0647
+            },
+            {
+              "attribute": "EDUCATION",
+              "min_approval_ratio_vs_best": 0.8477,
+              "four_fifths_rule_ok": true,
+              "roc_auc_spread": 0.061,
+              "max_fpr_gap": 0.083
+            },
+            {
+              "attribute": "MARRIAGE",
+              "min_approval_ratio_vs_best": 0.969,
+              "four_fifths_rule_ok": true,
+              "roc_auc_spread": 0.0118,
+              "max_fpr_gap": 0.0125
+            },
+            {
+              "attribute": "SEX",
+              "min_approval_ratio_vs_best": 0.926,
+              "four_fifths_rule_ok": true,
+              "roc_auc_spread": 0.0385,
+              "max_fpr_gap": 0.0199
+            }
+          ]
+        },
+        "resources": {
+          "process_rss_mb": 453.02,
+          "process_cpu_time_s": 9.78
+        }
+      },
+      {
+        "name": "inference_batch_valid",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:34.825249+00:00",
+        "finished_at": "2026-11-16T19:49:34.899440+00:00",
+        "duration_s": 0.074,
+        "records_in": 500,
+        "records_out": 500,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 453.02,
+          "process_cpu_time_s": 9.88
+        }
+      },
+      {
+        "name": "inference_batch_invalid",
+        "status": "BLOCKED",
+        "started_at": "2026-11-16T19:49:34.908216+00:00",
+        "finished_at": "2026-11-16T19:49:35.117651+00:00",
+        "duration_s": 0.2093,
+        "records_in": 200,
+        "records_out": 0,
+        "error": null,
+        "details": {
+          "expected_failure": true,
+          "rules_violated": [
+            "R02_NO_UNEXPECTED_COLUMNS",
+            "R03_DTYPES",
+            "R04_NOT_NULL",
+            "R05_NUMERIC_RANGES",
+            "R06_ALLOWED_CATEGORIES",
+            "R07_UNIQUE_ID",
+            "R08_ID_FORMAT"
+          ]
+        },
+        "resources": {
+          "process_rss_mb": 453.16,
+          "process_cpu_time_s": 10.09
+        }
+      },
+      {
+        "name": "simulate_drift",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:35.118198+00:00",
+        "finished_at": "2026-11-16T19:49:35.198537+00:00",
+        "duration_s": 0.0803,
+        "records_in": 7500,
+        "records_out": 12000,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 453.27,
+          "process_cpu_time_s": 10.16
+        }
+      },
+      {
+        "name": "monitor_normal",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:35.222355+00:00",
+        "finished_at": "2026-11-16T19:49:37.759720+00:00",
+        "duration_s": 2.5372,
+        "records_in": 3000,
+        "records_out": 3000,
+        "error": null,
+        "details": {
+          "diagnosis": "Estável"
+        },
+        "resources": {
+          "process_rss_mb": 479.36,
+          "process_cpu_time_s": 12.68
+        }
+      },
+      {
+        "name": "monitor_data_drift",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:37.769439+00:00",
+        "finished_at": "2026-11-16T19:49:40.845436+00:00",
+        "duration_s": 3.0758,
+        "records_in": 3000,
+        "records_out": 3000,
+        "error": null,
+        "details": {
+          "diagnosis": "Data Drift (P(X)) + Prediction Drift + Degradação de performance"
+        },
+        "resources": {
+          "process_rss_mb": 482.73,
+          "process_cpu_time_s": 15.74
+        }
+      },
+      {
+        "name": "monitor_concept_drift",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:40.855156+00:00",
+        "finished_at": "2026-11-16T19:49:43.910250+00:00",
+        "duration_s": 3.0549,
+        "records_in": 3000,
+        "records_out": 3000,
+        "error": null,
+        "details": {
+          "diagnosis": "Concept Drift confirmado (P(Y|X)) + Degradação de performance"
+        },
+        "resources": {
+          "process_rss_mb": 482.71,
+          "process_cpu_time_s": 18.74
+        }
+      },
+      {
+        "name": "monitor_data_and_concept_drift",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:43.918111+00:00",
+        "finished_at": "2026-11-16T19:49:47.061633+00:00",
+        "duration_s": 3.1434,
+        "records_in": 3000,
+        "records_out": 3000,
+        "error": null,
+        "details": {
+          "diagnosis": "Data Drift (P(X)) + Prediction Drift + Concept Drift confirmado (P(Y|X)) + Degradação de performance"
+        },
+        "resources": {
+          "process_rss_mb": 482.71,
+          "process_cpu_time_s": 21.82
+        }
+      },
+      {
+        "name": "scenario_figures",
+        "status": "SUCCESS",
+        "started_at": "2026-11-16T19:49:47.075500+00:00",
+        "finished_at": "2026-11-16T19:49:48.497870+00:00",
+        "duration_s": 1.4223,
+        "records_in": null,
+        "records_out": null,
+        "error": null,
+        "details": {},
+        "resources": {
+          "process_rss_mb": 482.75,
+          "process_cpu_time_s": 23.25
+        }
+      }
+    ]
+  },
+  "fairness": {
+    "min_group_size": 100,
+    "findings": [
+      {
+        "attribute": "AGE_BAND",
+        "min_approval_ratio_vs_best": 0.8948,
+        "four_fifths_rule_ok": true,
+        "roc_auc_spread": 0.024,
+        "max_fpr_gap": 0.0647
+      },
+      {
+        "attribute": "EDUCATION",
+        "min_approval_ratio_vs_best": 0.8477,
+        "four_fifths_rule_ok": true,
+        "roc_auc_spread": 0.061,
+        "max_fpr_gap": 0.083
+      },
+      {
+        "attribute": "MARRIAGE",
+        "min_approval_ratio_vs_best": 0.969,
+        "four_fifths_rule_ok": true,
+        "roc_auc_spread": 0.0118,
+        "max_fpr_gap": 0.0125
+      },
+      {
+        "attribute": "SEX",
+        "min_approval_ratio_vs_best": 0.926,
+        "four_fifths_rule_ok": true,
+        "roc_auc_spread": 0.0385,
+        "max_fpr_gap": 0.0199
+      }
+    ]
+  },
+  "resources": {
+    "process_rss_mb": 482.75,
+    "process_cpu_time_s": 23.25
+  }
+}
